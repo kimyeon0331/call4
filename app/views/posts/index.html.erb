@@ -1,0 +1,62 @@
+<p id="notice"><%= notice %></p>
+
+
+<%= form_for :post do |f| %>
+<div class="field">
+  <%= f.label :title %>
+  <%= f.text_field :title %>
+</div>
+
+<div class="field">
+  <%= f.label :time %>
+  <%= f.datetime_select :time %>
+</div>
+
+
+<div class="actions">
+  <%= f.submit %>
+</div>
+<% end %>
+
+
+
+<h1>Listing Posts</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Time</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+
+<% nowtime=Time.now+32400 %>
+
+    <% @posts.each do |post| %>
+  
+      
+      <%if nowtime <post.time+32400+300  %>
+      <%if nowtime+21600 > post.time+32400 %> 
+          <% if nowtime >post.time+32400 %>
+              <tr class="late">
+                <td> <%= post.title %></td>
+                 <td><%= post.time.strftime("%Y %b %d %H:%M") %></td>
+              </tr>
+            <% else %>
+                <tr>
+                  <td><%= post.title %></td>
+                  <td><%= post.time.strftime("%Y %b %d %H:%M") %></td>
+                </tr>
+      <% end %>
+      <% end %>
+    <% end %>
+    <%end %>
+
+    
+  </tbody>
+</table>
+
+<br>
